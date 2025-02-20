@@ -1,18 +1,52 @@
 @extends('app')
 
 @section('content')
-    <h1>Cadastro</h1>
-    <form action="{{ route('register.post') }}" method="POST">
-        @csrf
-        <label>Usuário:</label>
-        <input type="text" name="username">
+    <div class="container-login flex flex-row-reverse">
+        <!-- Área do Registro -->
+        <div class="login-form">
+            <img src="{{ asset('images/logo-myarts.png') }}" alt="Logo MyArts" class="logo">
 
-        <label>Email:</label>
-        <input type="email" name="email">
+            <form action="{{ route('register') }}" method="POST">
+                <div class='text-login'>
+                    <h1>Crie sua conta no MyArts</h1>
+                    <p>Junte-se à comunidade e compartilhe sua arte com o mundo!</p>
+                </div>
+                
+                @if ($errors->any())
+                    <ul class="error-messages">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
 
-        <label>Senha:</label>
-        <input type="password" name="password">
+                @csrf
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required placeholder="Digite seu nome">
 
-        <button type="submit">Registrar</button>
-    </form>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+
+                <label for="password">Senha:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                    <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePassword()"></i>
+                </div>
+
+                <button type="submit">Criar Conta</button>
+            </form>
+
+            <div class="register-link">
+                <p>Já tem uma conta? <a href="{{ route('login') }}">Logar</a></p>
+            </div>
+        </div>
+
+        <!-- Área da Imagem -->
+        <div class="image-side">
+            <div class="incentive-message">
+                <h2>Mostre seu talento para o mundo!</h2>
+                <p>Cadastre-se e faça parte da nossa comunidade criativa.</p>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -15,8 +15,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $response = Http::post('http://127.0.0.1:8000/api/login/', [
-            'username' => $request->username,
+        $response = Http::post('https://jeftefontes.pythonanywhere.com/api/login/', [
+            'username' => $request->email,
             'password' => $request->password,
         ]);
 
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $response = Http::post('http://127.0.0.1:8000/api/register/', [
+        $response = Http::post('https://jeftefontes.pythonanywhere.com/api/register/', [
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password
@@ -51,7 +51,7 @@ class AuthController extends Controller
     public function logout()
     {
         Session::forget('access_token');
-        return redirect('/login');
+        return redirect('/');
     }
 }
 ?>

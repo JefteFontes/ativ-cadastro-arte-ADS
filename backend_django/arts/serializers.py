@@ -15,3 +15,4 @@ class ArtSerializer(serializers.ModelSerializer):
         if obj.image:
             return request.build_absolute_uri(obj.image.url)  # Gera URL completa
         return None
+

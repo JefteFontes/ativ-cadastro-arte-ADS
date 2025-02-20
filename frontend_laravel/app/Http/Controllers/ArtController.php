@@ -8,16 +8,27 @@ use Illuminate\Support\Facades\Session;
 
 class ArtController extends Controller
 {
-    public function index() {
+    public function index(Request $request){
         $token = trim(Session::get('access_token'), '"');
         if (!$token) {
             return redirect()->back()->with('error', 'Erro de autenticação. Faça login novamente.');
         }
 
-        $response = Http::withToken($token)->get('http://127.0.0.1:8000/api/art/');
-        $arts = $response->json();
+        $urlAll = 'https://jeftefontes.pythonanywhere.com/api/art';
+        $urlMine = 'https://jeftefontes.pythonanywhere.com/api/art?my_arts=true';
 
-        return view('feed', compact('arts'));
+        // Requisições separadas para todas as artes e as artes do usuário autenticado
+        $responseAll = Http::withToken($token)->get($urlAll);
+        $responseMine = Http::withToken($token)->get($urlMine);
+
+        if (!$responseAll->successful() || !$responseMine->successful()) {
+            return redirect()->back()->with('error', 'Erro ao carregar as artes.');
+        }
+
+        $arts = $responseAll->json();
+        $myArts = $responseMine->json();
+
+        return view('feed', compact('arts', 'myArts'));
     }
 
     public function store(Request $request) {
@@ -26,27 +37,49 @@ class ArtController extends Controller
             'caption' => 'required|string|max:255'
         ]);
 
-        // Salva a imagem no armazenamento local
-        $imagePath = $request->file('image')->store('arts', 'public');
-        $imageFullPath = storage_path("app/public/$imagePath"); // Caminho absoluto para a imagem
-
-        // Envia a arte para a API do Django
         $token = trim(Session::get('access_token'), '"');
 
+        $imagePath = $request->file('image')->store('arts', 'public');
+        $imageFullPath = storage_path("app/public/$imagePath");
+
         $response = Http::withToken($token)
-            ->attach('image', file_get_contents($imageFullPath), basename($imagePath)) // fopen em vez de file_get_contents
-            ->post('http://127.0.0.1:8000/api/art/', [
+            ->attach('image', file_get_contents($imageFullPath), basename($imagePath))
+            ->post('https://jeftefontes.pythonanywhere.com/api/art/', [
                 'caption' => $request->caption
             ]);
 
         if ($response->successful()) {
             return redirect()->route('arts.index')->with('success', 'Arte publicada com sucesso!');
         }
-        
-        // Exibe erro em JSON para depuração
-        return response()->json([
-            'error' => 'Erro ao publicar arte.',
-            'message' => $response->body()
-        ], $response->status());
+
+        return redirect()->back()->with('error', 'Erro ao publicar arte.');
+    }
+
+    public function update(Request $request, $artId) {
+        $token = trim(Session::get('access_token'), '"');
+
+        $response = Http::withToken($token)
+            ->put("https://jeftefontes.pythonanywhere.com/api/art/$artId/", [
+                'caption' => $request->caption
+            ]);
+
+        if ($response->successful()) {
+            return redirect()->route('arts.index')->with('success', 'Arte atualizada com sucesso!');
+        }
+
+        return redirect()->back()->with('error', 'Erro ao atualizar arte.');
+    }
+
+    public function destroy($artId) {
+        $token = trim(Session::get('access_token'), '"');
+
+        $response = Http::withToken($token)
+            ->delete("https://jeftefontes.pythonanywhere.com/api/art/$artId/");
+
+        if ($response->successful()) {
+            return redirect()->route('arts.index')->with('success', 'Arte deletada com sucesso!');
+        }
+
+        return redirect()->back()->with('error', 'Erro ao deletar arte.');
     }
 }

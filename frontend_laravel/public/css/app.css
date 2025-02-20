@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Inter:ital,opsz,wght@0,14..32,800;1,14..32,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container principal */
+.container-login {
+    display: flex;
+    height: 100vh;
+}
+
+/* Área do formulário de login */
+.login-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+/* Logo */
+.logo {
+    width: 180px;
+    margin-bottom: 40px;
+}
+
+.text-login h1 { 
+    margin-bottom: 10px;
+}
+
+.text-login p {
+    margin-bottom: 20px;
+}
+
+/* Estilização do formulário */
+.login-form form {
+    width: 550px;
+    display: flex;
+    margin: 60px auto 20px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-form input:focus {
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(49, 175, 180, 0.4);
+}
+
+.login-form button {
+    padding: 12px;
+    margin-top: 30px;
+    background: #31afb4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.4s;
+    box-shadow: 0 4px 10px rgba(49, 175, 180, 0.4);
+}
+
+
+.login-form button:hover {
+    background: #197faa;
+    box-shadow: 0 4px 15px rgba(17, 85, 113, 0.6);
+}
+
+/* Mensagem de erro */
+.error-message {
+    position: relative;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    background: rgba(255, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid red;
+}
+
+.register-link {
+    text-align: center;
+}
+
+.register-link a {
+    color: #279296;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.4s;
+}
+
+.register-link a:hover {
+    color: #115571;
+}
+
+/* Área da imagem */
+.image-side {
+    width: 50%;
+    background: url('../images/artist-image.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Efeito de opacidade na imagem */
+.image-side::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Opacidade */
+}
+
+/* Mensagem incentivadora */
+.incentive-message {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    max-width: 80%;
+    z-index: 1;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* Espaço para o ícone */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+@media (max-width: 1300px) {
+    .login-form {
+        padding: 30px;
+    }
+
+    .login-form form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .container-login {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: url('../images/artist-image.png') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        height: 80%;
+    }
+
+    /* Adiciona um efeito escuro para dar destaque ao login */
+    .container-login::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .login-form {
+        width: 90%;
+        max-width: 400px;
+        background: rgba(255, 255, 255);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+    }
+
+    .login-form form {
+        width: 100%;
+        margin: 20px auto 0;
+    }
+
+    .register-link {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    /* Oculta a imagem de fundo e o texto */
+    .image-side, .incentive-message {
+        display: none;
+    }
+}
