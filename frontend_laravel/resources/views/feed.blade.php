@@ -120,7 +120,7 @@
                             <a href="{{ route('arts.update', $art['id']) }}">Editar</a>
                             <form action="{{ route('arts.destroy', $art['id']) }}" method="POST" style="display:inline;">
                                 @csrf
-                                @method('DELETE')
+                                @method('DELETE')a
                                 <button type="submit" class="delete-btn">Deletar</button>
                             </form>
                         </div>
