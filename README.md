@@ -206,16 +206,7 @@ composer install
 cp .env.example .env
 ```
 
-4. **Gere a chave da aplicação:**
-
-```sh
-php artisan key:generate
-```
-
-```sh
-```
-
-7. **Inicie o servidor:**
+5. **Inicie o servidor:**
 
 ```sh
 php artisan serve
@@ -224,6 +215,6 @@ php artisan serve
 Agora, o frontend Laravel estará disponível para acesso no navegador.
 
 ## Requisitos
-  PHP: Versão 8.4.3
-  Composer: Versão 2.8.5
+- PHP: Versão 8.4.3
+- Composer: Versão 2.8.5
 
