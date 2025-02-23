@@ -35,14 +35,16 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $response = Http::post('https://jeftefontes.pythonanywhere.com/api/register/', [
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->post('https://jeftefontes.pythonanywhere.com/api/register/', [
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password
         ]);
-
         if ($response->successful()) {
-            return redirect('/login')->with('success', 'Cadastro realizado! Faça login.');
+            return redirect('/')->with('success', 'Cadastro realizado! Faça login.');
         } else {
             return back()->withErrors(['error' => 'Erro ao registrar usuário.']);
         }

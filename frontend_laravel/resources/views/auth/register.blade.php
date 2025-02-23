@@ -6,7 +6,7 @@
         <div class="login-form">
             <img src="{{ asset('images/logo-myarts.png') }}" alt="Logo MyArts" class="logo">
 
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('register') }}" method="post">
                 <div class='text-login'>
                     <h1>Crie sua conta no MyArts</h1>
                     <p>Junte-se à comunidade e compartilhe sua arte com o mundo!</p>
@@ -21,8 +21,8 @@
                 @endif
 
                 @csrf
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" required placeholder="Digite seu nome">
+                <label for="username">Nome:</label>
+                <input type="text" id="username" name="username" required placeholder="Digite seu nome">
 
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
