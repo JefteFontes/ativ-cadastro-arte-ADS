@@ -32,45 +32,6 @@ Este projeto é uma aplicação web para cadastro, visualização, edição e ex
 - **Bootstrap**: Para estilização das páginas.
 - **HTTP Client**: Para consumo da API Django.
 
-## Estrutura do Projeto
-
-### Backend (Django)
-
-#### URLs:
-
-```python
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/register/', RegisterView.as_view(), name='register'),
-    path('api/art/', ArtListCreateView, name='art-list-create'),
-    path('api/art/<int:art_id>/', ArtDetailView, name='art-detail'),
-]
-```
-
-### Frontend (Laravel)
-
-#### Controllers:
-
-- **AuthController**: Gerencia autenticação e registro de usuários.
-- **ArtController**: Gerencia as operações relacionadas às artes.
-
-#### Rotas:
-
-```php
-Route::get('/', [AuthController::class, 'ShowLoginForm'])->name('login');
-Route::post('/', [AuthController::class, 'login'])->name('login.post');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-
-Route::get('/feed', [ArtController::class, 'index'])->name('arts.index');
-Route::post('/art/store', [ArtController::class, 'store'])->name('arts.store');
-Route::put('/art/{id}', [ArtController::class, 'update'])->name('arts.update');
-Route::delete('/art/{id}', [ArtController::class, 'destroy'])->name('arts.destroy');
-```
-
 ## Testando a API com Insomnia
 
 O backend do projeto já está hospedado e disponível para testes no PythonAnywhere. Você pode testar a API usando o Insomnia ou qualquer outra ferramenta de teste de APIs. Abaixo estão os endpoints disponíveis:
@@ -211,8 +172,6 @@ cp .env.example .env
 ```sh
 php artisan serve
 ```
-
-Agora, o frontend Laravel estará disponível para acesso no navegador.
 
 ## Requisitos
 - PHP: Versão 8.4.3
