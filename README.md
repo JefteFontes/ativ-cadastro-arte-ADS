@@ -151,7 +151,7 @@ O backend do projeto já está hospedado e disponível para testes no PythonAnyw
 1. **Clone o repositório:**
 
 ```sh
-git clone 
+git clone https://github.com/JefteFontes/ativ-cadastro-arte-ADS.git
 ```
 
 2. **Instale as dependências:**
